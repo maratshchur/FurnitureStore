@@ -1,0 +1,31 @@
+{% extends 'products/base.html' %}
+{% load static %}
+{% block content %}
+<head>
+  <link rel="stylesheet" type="text/css" href="{% static 'css/product_detail.css' %}">
+</head>
+
+<div class="product-detail">
+  <div class="product-info">
+    <b class="name">{{ product.name }}</b>
+    <p class="model">{{ product.model }}</p>
+  </div>
+  <div class="product-image-container">
+    <img src="{{ product.image.url }}" alt="{{ product.name }}" class="product-image" />
+  </div>
+  <div class="product-price-cart">
+    <p class="price">$ {{ product.price }}</p>
+    <p>
+      <a href="{% url 'add_to_cart' product.id %}">
+        {% if request.user.is_authenticated and not request.user.is_superuser %}
+        <button class="btn btn-primary btn-cart">
+          <img src="{% static 'images/cart1.png' %}" width="25" height="25" alt="Add to cart">
+          Добавить в корзину
+        </button>
+        {% endif %}
+      </a>
+    </p>
+  </div>
+</div>
+
+{% endblock %}

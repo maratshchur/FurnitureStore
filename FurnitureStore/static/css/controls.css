@@ -1,0 +1,18 @@
+#style-controls {
+    display: none; /* Initially hidden */
+    margin-top: 20px;
+}
+
+#style-controls label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+#style-controls input[type="range"] {
+    width: 100%;
+}
+
+#style-controls select {
+    width: 100%;
+    padding: 5px;
+}

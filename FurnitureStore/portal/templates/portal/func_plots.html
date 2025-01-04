@@ -1,0 +1,147 @@
+{% extends 'products/base.html' %}
+{% block content %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exponential Function Plot</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-annotation@1.1.0"></script> <!-- Annotation Plugin -->
+    <script src="https://cdn.jsdelivr.net/npm/file-saver@2.0.5/dist/FileSaver.min.js"></script>  <!-- Include FileSaver.js -->
+</head>
+<body>
+    <h2>Plot of Series Expansion vs Actual Function \( e^x \)</h2>
+    
+    <label for="nTerms">Enter number of terms (n): </label>
+    <input type="number" id="nTerms" value="5" min="1" max="20" step="1">
+    <button onclick="updateChart()">Update Chart</button>
+    <button onclick="saveChart()">Save Chart as Image</button>
+    <div class="container">
+        <canvas id="myChart" width="300" height="150"></canvas>
+    </div>
+
+    <script>
+        function calculateSeries(x, terms) {
+            let sum = 1; 
+            let factorial = 1; 
+            let xPower = 1;
+
+            for (let n = 1; n <= terms; n++) {
+                xPower *= x;    
+                factorial *= n; 
+                sum += xPower / factorial;
+            }
+
+            return sum;
+        }
+
+        function generateData(terms) {
+            const xValues = [];
+            const seriesValues = [];
+            const actualValues = [];
+
+            const xMin = -2; 
+            const xMax = 2;  
+            const step = 0.1; 
+
+            for (let x = xMin; x <= xMax; x += step) {
+                xValues.push(x.toFixed(2)); 
+                seriesValues.push(calculateSeries(x, terms)); 
+                actualValues.push(Math.exp(x));
+            }
+
+            return { xValues, seriesValues, actualValues };
+        }
+
+        // Create the initial chart
+        const ctx = document.getElementById('myChart').getContext('2d');
+        let chartData = generateData(5); // default n = 5
+        let myChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: chartData.xValues,
+                datasets: [
+                    {
+                        label: `Series Expansion (n=5)`,
+                        data: chartData.seriesValues,
+                        borderColor: 'rgba(75, 192, 192, 1)',
+                        fill: false,
+                        borderWidth: 2
+                    },
+                    {
+                        label: 'Actual Function Math.exp(x)',
+                        data: chartData.actualValues,
+                        borderColor: 'rgba(255, 99, 132, 1)',
+                        fill: false,
+                        borderWidth: 2
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    x: {
+                        title: {
+                            display: true,
+                            text: 'x'
+                        }
+                    },
+                    y: {
+                        title: {
+                            display: true,
+                            text: 'F(x)'
+                        }
+                    }
+                },
+                plugins: {
+                    legend: {
+                        display: true,
+                        position: 'top'
+                    },
+                    tooltip: {
+                        enabled: true
+                    },
+                    annotation: {
+                        annotations: {
+                          
+                            // Annotation for a key point on the curve (e.g., x = 2)
+                            oneLine: {
+                                type: 'line',
+                                scaleID: 'x',
+                                value: '2',
+                                borderColor: 'rgba(0, 255, 0, 0.5)',
+                                borderWidth: 2,
+                                label: {
+                                    content: 'x = 2',
+                                    enabled: true,
+                                    position: 'end'
+                                }
+                            },
+                        }
+                    }
+                }
+            }
+        });
+
+        // Function to update the chart when n changes
+        function updateChart() {
+            const n = parseInt(document.getElementById('nTerms').value);
+            const newData = generateData(n);
+
+            myChart.data.labels = newData.xValues;
+            myChart.data.datasets[0].data = newData.seriesValues;
+            myChart.data.datasets[0].label = `Series Expansion (n=${n})`;
+            myChart.data.datasets[1].data = newData.actualValues; // Update actual values as well
+
+            myChart.update(); 
+        }
+
+        function saveChart() {
+            const imageLink = document.createElement('a');
+            imageLink.href = myChart.toBase64Image();
+            imageLink.download = 'chart.png';
+            imageLink.click();
+        }
+    </script>
+</body>
+
+{% endblock %}

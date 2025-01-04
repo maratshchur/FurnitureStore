@@ -1,0 +1,43 @@
+.container {
+    max-width: 600px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.title {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.quote-author {
+    font-size: 1.2em;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.quote-body {
+    font-size: 1.5em;
+    font-style: italic;
+    border-left: 4px solid #8E9D74;
+    padding-left: 15px;
+    color: #555;
+}
+
+/* Responsive adjustments */
+@media (max-width: 600px) {
+    .container {
+        padding: 15px;
+    }
+    .title {
+        font-size: 24px;
+    }
+    .quote-author {
+        font-size: 1em;
+    }
+    .quote-body {
+        font-size: 1.2em;
+    }
+}

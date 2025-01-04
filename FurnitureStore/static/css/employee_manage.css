@@ -1,0 +1,186 @@
+h1, h2 {
+    text-align: center;
+    color: #333;
+    font-family: 'Arial', sans-serif;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+th, td {
+    border: 1px solid #ddd;
+    padding: 12px;
+    text-align: left;
+    font-family: 'Arial', sans-serif;
+}
+
+th {
+    background-color: #8E9D74;
+    color: white;
+    cursor: pointer;
+    font-size: 16px;
+    position: relative;
+}
+
+th.sorted-asc::after {
+    content: "▲";
+    position: absolute;
+    right: 10px;
+    font-size: 12px;
+    color: white;
+}
+
+th.sorted-desc::after {
+    content: "▼";
+    position: absolute;
+    right: 10px;
+    font-size: 12px;
+    color: white;
+}
+
+tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+tr:hover {
+    background-color: #f1f1f1;
+}
+
+img {
+    max-width: 50px;
+    max-height: 50px;
+    border-radius: 50%;
+}
+
+.form-group {
+    margin-bottom: 15px;
+    width: 100%;
+    max-width: 400px;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #333;
+}
+
+input[type="text"], input[type="file"], input[type="email"], input[type="url"], .input-filter {
+    width: 100%;
+    padding: 10px;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+button {
+    background-color: #8E9D74;
+    color: white;
+    padding: 12px 20px;
+    margin-top: 15px;
+    margin-bottom:15px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 16px;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: rgb(46, 100, 49);
+}
+
+.btn-primary {
+    background-color: #8E9D74;
+    color: white;
+}
+
+.btn-primary:hover {
+    background-color: rgb(46, 100, 49);
+}
+
+.btn-secondary {
+    background-color: #6c757d;
+    color: white;
+}
+
+.btn-secondary:hover {
+    background-color: #5a6268;
+}
+
+.add-employee-form {
+    display: none;
+    margin-bottom: 20px;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.error {
+    border-color: red;
+    background-color: pink;
+}
+
+.error-message {
+    color: red;
+    margin-top: 5px;
+}
+
+#employeeDetails {
+    margin-top: 20px;
+    text-align: center;
+}
+
+#pagination {
+    margin-top: 20px;
+    text-align: center;
+}
+
+#pagination button {
+    background-color: #8E9D74;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    cursor: pointer;
+    border-radius: 5px;
+    margin: 0 5px;
+    font-size: 14px;
+}
+
+#pagination button:disabled {
+    background-color: gray;
+    cursor: not-allowed;
+}
+
+#rewardButton {
+    margin-top: 20px;
+}
+
+#rewardText {
+    margin-top: 10px;
+    text-align: center;
+}
+
+@media (max-width: 600px) {
+    table {
+        display: block;
+        overflow-x: auto;
+    }
+}

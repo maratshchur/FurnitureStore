@@ -1,0 +1,54 @@
+{% extends 'products/base.html' %}
+{% load static %}
+{% load multiply %}
+
+{% block content %}
+<head>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/cart.css' %}">
+</head>
+
+<main>
+    {% if cart_items %}
+    <table>
+        <caption>Корзина</caption>
+        <thead>
+            <tr>
+                <th>Product</th>
+                <th>Image</th>
+                <th>Quantity</th>
+                <th>Price</th>
+                <th>Total</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in cart_items %}
+            <tr>
+                <td>{{ item.product.name }}</td>
+                <td><img src="{{ item.product.image.url }}" alt="{{ item.product.name }}" width="100"></td>
+                <td>{{ item.quantity }}</td>
+                <td>{{ item.product.price }} $</td>
+                <td>{{ item.quantity|multiply:item.product.price }} $</td>
+                <td>
+                    <form action="{% url 'update_cart' item.product.id %}" method="post">
+                        {% csrf_token %}
+                        <button type="submit" name="action" value="increase" class="btn btn-primary">+</button>
+                        <button type="submit" name="action" value="decrease" class="btn btn-primary">-</button>
+                    </form>
+                    <form action="{% url 'remove_from_cart' item.product.id %}" method="post">
+                        {% csrf_token %}
+                        <button type="submit" class="btn-primary">Удалить</button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <p>Total: {{ total_price }}$</p>
+    <a class="pay-button" href="{% url 'payment' %}">Оплатить</a>
+    {% else %}
+    <p>Your cart is empty.</p>
+    {% endif %}
+</main>
+
+{% endblock %}

@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Анимация мебели</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background-color: #f0f0f0;
+      overflow: hidden;
+      font-family: Arial, sans-serif;
+    }
+
+    .scene {
+      position: relative;
+      width: 100%;
+      height: 100%;
+    }
+
+    .item {
+      position: absolute;
+      width: 100px;
+      height: 100px;
+      opacity: 0;
+      animation: drop 3s forwards;
+    }
+
+    .board { top: -100px; left: 10%; animation-delay: 0s; }
+    .nail { top: -100px; left: 30%; animation-delay: 0.5s; }
+    .hammer { top: -100px; left: 50%; animation-delay: 1s; }
+
+    .item img {
+      width: 100%;
+      height: 100%;
+    }
+
+    @keyframes drop {
+      0% {
+        transform: translateY(-200px);
+        opacity: 0;
+      }
+      50% {
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+
+    .explosion {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 200px;
+      height: 200px;
+      opacity: 0;
+      animation: explode 2s forwards 3s;
+    }
+
+    @keyframes explode {
+      0% {
+        transform: scale(0.5) translate(-50%, -50%);
+        opacity: 0;
+      }
+      50% {
+        opacity: 1;
+      }
+      100% {
+        transform: scale(2) translate(-50%, -50%);
+        opacity: 0;
+      }
+    }
+
+    .furniture {
+      position: absolute;
+      width: 150px;
+      height: 150px;
+      opacity: 0;
+      animation: move 3s forwards 5s;
+    }
+
+    .table { top: 20%; left: 20%; }
+    .chair { top: 40%; left: 50%; }
+    .wardrobe { top: 60%; left: 80%; }
+
+    @keyframes move {
+      0% {
+        transform: translateY(100px) scale(0.5);
+        opacity: 0;
+      }
+      50% {
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(0) scale(1);
+        opacity: 1;
+      }
+    }
+
+    .company-name {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 3rem;
+      opacity: 0;
+      animation: showName 3s forwards 8s;
+    }
+
+    @keyframes showName {
+      0% {
+        opacity: 0;
+      }
+      100% {
+        opacity: 1;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="scene">
+    <!-- Падающие доски, винтики и молоток -->
+    <div class="item board"><img src="{% static 'images/image1.png' %}" alt="Доска"></div>
+    <div class="item nail"><img src="{% static 'images/image2.png' %}"  alt="Винтик"></div>
+    <div class="item hammer"><img src="{% static 'images/image3.png' %}"  alt="Молоток"></div>
+
+    <!-- Взрыв -->
+    <div class="explosion"><img src="{% static 'images/explosion.png' %}"  alt="Взрыв"></div>
+
+    <!-- Появляющаяся мебель -->
+    <div class="furniture table"><img src="{% static 'images/table.png' %}" alt="Стол"></div>
+    <div class="furniture chair"><img src="{% static 'images/chair.png' %}"  alt="Стул"></div>
+    <div class="furniture wardrobe"><img src="{% static 'images/image1.png' %}" alt="Шкаф"></div>
+
+    <!-- Название компании -->
+    <div class="company-name">Моя Мебельная Компания</div>
+  </div>
+</body>
+</html>

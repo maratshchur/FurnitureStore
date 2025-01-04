@@ -1,0 +1,173 @@
+{% extends 'products/base.html' %}
+
+{% block content %}
+<head>
+    <title>Авиапассажиры</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        #passenger-list {
+            margin-top: 20px;
+        }
+        .error {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>Добавление пассажира</h2>
+    <form id="passenger-form">
+        <label for="surname">Фамилия:</label>
+        <input type="text" id="surname" required><br><br>
+
+        <label for="name">Имя:</label>
+        <input type="text" id="name" required><br><br>
+
+        <label for="patronymic">Отчество:</label>
+        <input type="text" id="patronymic" required><br><br>
+
+        <label for="flightNumber">Номер рейса:</label>
+        <input type="text" id="flightNumber" required><br><br>
+
+        <button type="submit">Добавить пассажира</button>
+        <div id="error-message" class="error"></div>
+    </form>
+
+    <div id="passenger-list"></div>
+    <div id="result"></div>
+
+    <script>
+        // Базовый класс Person
+        function Person(surname, name, patronymic) {
+            this.surname = surname;
+            this.name = name;
+            this.patronymic = patronymic;
+        }
+
+        Person.prototype.getSurname = function() {
+            return this.surname;
+        };
+
+        Person.prototype.setSurname = function(surname) {
+            this.surname = surname;
+        };
+
+        Person.prototype.getName = function() {
+            return this.name;
+        };
+
+        Person.prototype.setName = function(name) {
+            this.name = name;
+        };
+
+        Person.prototype.getPatronymic = function() {
+            return this.patronymic;
+        };
+
+        Person.prototype.setPatronymic = function(patronymic) {
+            this.patronymic = patronymic;
+        };
+
+        // Класс Passenger, наследуемый от Person
+        function Passenger(surname, name, patronymic, flightNumber) {
+            Person.call(this, surname, name, patronymic);
+            this.flightNumber = flightNumber;
+        }
+
+        Passenger.prototype = Object.create(Person.prototype);
+        Passenger.prototype.constructor = Passenger;
+
+        Passenger.prototype.getFlightNumber = function() {
+            return this.flightNumber;
+        };
+
+        Passenger.prototype.setFlightNumber = function(flightNumber) {
+            this.flightNumber = flightNumber;
+        };
+
+        // Массив для хранения всех пассажиров
+        let passengers = [];
+
+        // Метод добавления пассажира
+        Passenger.prototype.addPassenger = function() {
+            passengers.push(this);
+            displayPassengers(); 
+        };
+
+        // Функция для отображения всех пассажиров
+        function displayPassengers() {
+            const passengerList = document.getElementById('passenger-list');
+            passengerList.innerHTML = '<h3>Список пассажиров:</h3>';
+            if (passengers.length === 0) {
+                passengerList.innerHTML += '<p>Пассажиры отсутствуют.</p>';
+                return;
+            }
+            passengers.forEach((passenger, index) => {
+                passengerList.innerHTML += `<p>${index + 1}. ${passenger.getSurname()} ${passenger.getName()} ${passenger.getPatronymic()} — Рейс: ${passenger.getFlightNumber()}</p>`;
+            });
+        }
+
+        // Функция для поиска однофамильцев на одном рейсе
+        function findDuplicates() {
+            const resultDiv = document.getElementById('result');
+            const duplicates = {}; // Объект для хранения однофамильцев по рейсам
+            
+            // Группируем пассажиров по фамилии и номеру рейса
+            passengers.forEach(passenger => {
+                const key = `${passenger.getSurname()}-${passenger.getFlightNumber()}`;
+                duplicates[key] = duplicates[key] || [];
+                duplicates[key].push(passenger);
+            });
+
+            // Проверяем и выводим результаты
+            resultDiv.innerHTML = '<h3>Однофамильцы на рейсах:</h3>';
+            let duplicateFound = false;
+            for (const key in duplicates) {
+                if (duplicates[key].length > 1) {
+                    duplicateFound = true;
+                    resultDiv.innerHTML += `<p>Рейс ${duplicates[key][0].getFlightNumber()}: ${duplicates[key].map(p => `${p.getSurname()} ${p.getName()} ${p.getPatronymic()}`).join(', ')}</p>`;
+                }
+            }
+            if (!duplicateFound) {
+                resultDiv.innerHTML += '<p>Однофамильцы отсутствуют.</p>';
+            }
+        }
+
+        // Обработка отправки формы
+        document.getElementById('passenger-form').addEventListener('submit', function(e) {
+            e.preventDefault(); // Предотвращаем перезагрузку страницы
+
+            const errorMessage = document.getElementById('error-message');
+            errorMessage.innerHTML = ''; // Очищаем сообщение об ошибке
+            
+            // Получаем значения полей формы
+            const surname = document.getElementById('surname').value;
+            const name = document.getElementById('name').value;
+            const patronymic = document.getElementById('patronymic').value;
+            const flightNumber = document.getElementById('flightNumber').value;
+
+            // Проверка заполнения всех полей
+            if (!surname || !name || !patronymic || !flightNumber) {
+                errorMessage.innerHTML = 'Все поля обязательны для заполнения!';
+                return;
+            }
+
+            // Создаём нового пассажира
+            const newPassenger = new Passenger(surname, name, patronymic, flightNumber);
+            
+            // Добавляем пассажира в массив и обновляем список пассажиров
+            newPassenger.addPassenger();
+
+            // Ищем однофамильцев на одном рейсе
+            findDuplicates();
+
+            // Сбрасываем форму после добавления пассажира
+            document.getElementById('passenger-form').reset();
+        });
+    </script>
+
+</body>
+{% endblock %}

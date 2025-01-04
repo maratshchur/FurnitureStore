@@ -1,0 +1,23 @@
+{% extends 'products/base.html' %}
+{% load static %}
+{% block content %}
+<head>
+  <link rel="stylesheet" href="{% static 'css/gender_detection.css' %}">
+</head>
+<div class="container">
+  <h1 class="title">Пол человека по имени</h1>
+  <form action="" method="get" class="gender-form">
+    <label for="name">Введите имя:</label>
+    <input type="text" name="name" id="name" value="{{ name }}" class="input-field">
+    <button type="submit" class="btn btn-primary">Узнать пол</button>
+  </form>
+  
+  {% if gender %}
+    <div class="result">
+      <p>Имя: <strong>{{ name }}</strong></p>
+      <p>Пол: <strong>{{ gender }}</strong></p>
+      <p>Вероятность: <strong>{{ probability }}%</strong></p>
+    </div>
+  {% endif %}
+</div>
+{% endblock %}

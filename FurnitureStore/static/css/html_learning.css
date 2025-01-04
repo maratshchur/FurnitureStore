@@ -1,0 +1,253 @@
+/* General Styles */
+body {
+    /* Main font family from Google Fonts */
+    font-family: 'Roboto', sans-serif;
+    line-height: 1.6;
+}
+/* Heading styles */
+h1, h2, h3, h4, h5, h6 {
+    /* Alternate font family for headings */
+    font-family: 'Merriweather', serif;
+    margin-bottom: 10px;
+    text-transform: capitalize;
+    font-kerning:normal; 
+}
+
+/* Paragraph styles */
+p {
+    margin-bottom: 20px;
+    text-align: justify;
+    text-indent: 20px; /* Red line for the first line */
+    line-height: 1.8;
+}
+
+/* Text selection styles */
+::selection {
+    background-color: #00ff08;
+    color: white;
+}
+
+/* Additional typography */
+.font-variant-small-caps {
+    font-variant: small-caps;
+}
+
+.word-spacing {
+    word-spacing: 5px;
+}
+
+.letter-spacing {
+    letter-spacing: 2px;
+}
+
+.text-align-justify {
+    text-align: justify;
+}
+
+.font-size-18px {
+    font-size: 18px;
+}
+
+.text-transform-uppercase {
+    text-transform: uppercase;
+}
+
+.text-transform-lowercase {
+    text-transform: lowercase;
+}
+
+.text-transform-capitalize {
+    text-transform: capitalize;
+}
+
+.kapitel {
+    font-variant: small-caps;
+    font-size: 1.5em; /* Размер шрифта можно регулировать */
+    letter-spacing: 0.01em; /* Добавляет пространство между буквами */
+}
+/* List styles */
+.list {
+    padding-left: 20px;
+    margin-bottom: 10px;
+}
+
+.listItem {
+    margin-bottom: 10px;
+}
+
+.listItem:first-child {
+    font-weight: bold;
+    color: #007bff;
+}
+
+.listItem:last-child {
+    font-style: italic;
+    color: #ab1e1e;
+}
+
+.listItem:nth-child(2) {
+    text-decoration: underline;
+}
+
+/* Unicode bullet points for unordered list */
+ul.list {
+    list-style-type: '\2022';
+}
+
+/* Table styles */
+.table {
+    border-spacing: 20px 10px;
+    border-collapse: collapse;
+    margin-bottom: 10px;
+    width: 100%;
+}
+
+/* Table cells */
+th, td {
+    border: 1px solid #ab1e1e;
+    padding: 10px;
+    margin: 10px;
+}
+
+th {
+    background-color: #f0f0f0;
+}
+
+td:first-child {
+    background-color: black;
+    font-weight: bold;
+}
+
+td:last-child {
+    background-color: yellow;
+    font-style: italic;
+}
+
+td:empty {
+    background-color: red; /* Color for empty cells */
+    color: #888; /* Text color for empty cells */
+}
+
+/* Form styles */
+form {
+    margin-bottom: 20px;
+}
+
+label {
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+input[type="text"], input[type="email"], input[type="number"], input[type="range"], input[type="date"], input[type="time"] {
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+input:required {
+    border-color: red;
+}
+
+input:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+input[type="checkbox"]:checked, input[type="radio"]:checked {
+    background-color: #007bff;
+    border-color: #007bff;
+}
+
+select {
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+select:required {
+    border-color: red;
+}
+
+option:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+option:selected {
+    background-color: #007bff;
+    color: #fff;
+}
+
+/* Quotation styles */
+blockquote[lang="en"] {
+    quotes: "“" "”" "‘" "’";
+}
+
+blockquote[lang="fr"] {
+    quotes: "«" "»" "‹" "›";
+}
+
+blockquote[lang="de"] {
+    quotes: "„" "“" "‚" "‘";
+}
+
+blockquote:before {
+    content: open-quote;
+}
+
+blockquote:after {
+    content: close-quote;
+}
+
+/* First letter styling */
+p:first-of-type::first-letter {
+    font-size: 200%;
+    font-weight: bold;
+    color: #ab1e1e;
+}
+
+/* Media styles */
+.image {
+    margin-bottom: 10px;
+}
+
+.audio {
+    margin-bottom: 10px;
+}
+
+/* Cursor change on buttons */
+button {
+    cursor: pointer;
+}
+
+
+input#number:in-range {
+    border: 2px solid green;
+}
+input#number:out-of-range {
+    border: 2px solid red;
+}
+/* Responsive Design with Media Queries */
+@media (max-width: 768px) {
+    body {
+        font-size: 14px;
+    }
+
+    .table, .list {
+        font-size: 12px;
+    }
+
+    h1, h2, h3 {
+        font-size: 18px;
+    }
+}
+
+@media (min-width: 1200px) {
+    body {
+        font-size: 18px;
+    }
+
+    h1, h2, h3 {
+        font-size: 24px;
+    }
+}

@@ -1,0 +1,215 @@
+{% extends 'products/base.html' %}
+{% load static %}
+{% block content %}
+<head>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/home.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/controls.css' %}">
+</head>
+<div id="body">
+<div id="hero-section" class="hero">
+    <h1>Furniture that<br> everyone<br> Loves</h1>
+    <p>We have 500+ items and our customers love all<br> Our furniture and quality products</p>
+    <!-- <p class="company-name">Muebles<br>Elegantes</p> -->
+    <a href="{% url 'cart' %}" class="btn">Buy Now</a>  <!-- Updated to link to cart -->
+    <a href="#product-grid" class="btn">Explore</a>  <!-- Updated to anchor link -->
+    <img src="{% static 'images/sofa.png' %}" alt="logo" class="sofa" >
+    <img class = "wall-picture" src="{% static 'images/wall_picture.png' %}" alt="logo" class="wall-picture" >
+    <!-- <img src="{% static 'images/wall_picture.png' %}" alt="logo" class="wall-picture" > -->
+
+    
+</div>
+
+<!-- Search Form -->
+ <!-- Search Form -->
+<!-- <div class="search-form">
+    <form action="{% url 'search_products' %}" method="get" class="search-form">
+      <div class="input-group">
+        <input type="search" name="q" placeholder="Поиск по названию товара" value="{{ request.GET.q }}" class="form-control">
+        <button type="submit" class="btn btn-primary">Искать</button>
+      </div>
+    </form>
+  </div>
+  
+  <div class="filter-form">
+    <form action="{% url 'filter_products' %}" method="get" class="filter-form">
+      <div class="row">
+        <div class="col-md-4">
+          <label for="price_min" class="label">Цена от:</label>
+          <input type="number" name="price_min" id="price_min" value="{{ request.GET.price_min }}" class="form-control">
+        </div>
+        <div class="col-md-4">
+          <label for="price_max" class="label">до:</label>
+          <input type="number" name="price_max" id="price_max" value="{{ request.GET.price_max }}" class="form-control">
+        </div>
+        <div class="col-md-4">
+          <label for="product_type" class="label">Тип товара:</label>
+          <select name="product_type" id="product_type" class="form-control">
+            <option value="">Все</option>
+            {% for type in product_types %}
+              <option value="{{ type }}" {% if request.GET.product_type == type %}selected{% endif %}>{{ type }}</option>
+            {% endfor %}
+          </select>
+        </div>
+      </div>
+      <button type="submit" class="btn btn-primary">Фильтровать</button>
+    </form>
+  </div> -->
+
+  <!-- <img src="{% static 'slides_pictures/4536494.jpg' %}" alt="Slide 1">
+  <div class="caption">Caption Text 1</div>
+</div>
+<div class="slide" data-link="https://example.com/2">
+  <img src="{% static 'slides_pictures/4756079.jpg' %}" alt="Slide 2">
+  <div class="caption">Caption Text 2</div>
+</div>
+<div class="slide" data-link="https://example.com/3">
+  <img src="{% static 'slides_pictures/4776107.jpg' %}" alt="Slide 3">
+  <div class="caption">Caption Text 3</div> -->
+
+
+<!-- Catalog of Products -->
+<div class="product-grid" id="product-grid">
+  <a href="{% url 'news' %}" class="product-card first-card">
+      <div class="product-info">
+          <h3 class="first-card">Почему мы лучшие в городе</h3>
+          <p class="first-card">Мы предлагаем высококачественную мебель, индивидуальный подход к каждому клиенту и бесплатную доставку по городу. Убедитесь сами!</p>
+      </div>
+  </a>
+  
+      {% for product in products %}
+      <div class="product-card" data-product-id="{{ forloop.counter }}">
+          <a href="{% url 'product_detail' product.id %}">
+              <img src="{{ product.image.url }}" alt="{{ product.name }}" class="product-image">
+          </a>
+          <h2 class="product-title">{{ product.name }}</h2>
+          <h3 class="product-price">${{ product.price }}</h3>
+      </div>
+      {% endfor %}
+
+  <!-- Контейнер для пагинации -->
+</div>
+<div id="pagination-controls" class="pagination-controls"></div>
+
+<div>
+  <input type="checkbox" id="toggle-styles" name="toggle-styles">
+  <label for="toggle-styles">Изменить стиль</label>
+  <div id="style-controls">
+      <label for="font-size">Размер шрифта:</label>
+      <input type="range" id="font-size" min="10" max="30" value="16">
+
+      <label for="text-color">Цвет текста:</label>
+      <input type="color" id="text-color" value="#000000">
+
+      <label for="background-color">Цвет фона:</label>
+      <input type="color" id="background-color" value="#ffffff">
+  </div>
+</div>
+
+<div class="slider" id="slider">
+  <div class="slides">
+      <div class="slide" >
+        <a href="http://127.0.0.1:8000/products/3/">
+          <img src="{% static 'slides_pictures/4536494.jpg' %}" alt="Slide 1">
+          <div class="caption">Диван угловой Онте</div>
+      </a>    
+      </div>
+      <div class="slide">
+        <a href="http://127.0.0.1:8000/products/8/">
+          <img src="{% static 'slides_pictures/4756079.jpg' %}" alt="Slide 2">
+          <div class="caption">Тумба Модерн-2</div>
+        </a>
+      </div>
+      <div class="slide">
+        <a href="http://127.0.0.1:8000/products/6/">
+          <img src="{% static 'slides_pictures/4887614.jpg' %}" alt="Slide 3">
+          <div class="caption">Журнальный стол Осака</div>
+          </a>
+      </div>
+  </div>
+  <div class="counter" id="counter">1/3</div>
+  <div class="nav" id="navs">
+      <button id="prev">❮</button>
+      <button id="next">❯</button>
+  </div>
+</div>
+
+<div class="pagination" id="pagination">
+  <button data-slide="0" class="active"></button>
+  <button data-slide="1"></button>
+  <button data-slide="2"></button>
+</div>
+
+
+<form id="sliderSettings">
+{% if not request.user.is_superuser  %}
+<style>
+  #sliderSettings{
+    display: none;
+  }
+</style>
+{% endif %}
+<label for="auto">Auto-Slide:</label>
+<input type="checkbox" id="auto" checked><br>
+<label for="delay">Delay (сек):</label>
+<input type="number" id="delay" value="5" min="1"><br>
+<label for="loop">Loop:</label>
+<input type="checkbox" id="loop" checked><br>
+<label for="navs">Show Navigation Arrows:</label>
+<input type="checkbox" id="navsToggle" checked><br>
+<label for="pags">Show Pagination:</label>
+<input type="checkbox" id="pagsToggle" checked><br>
+<label for="stopMouseHover">Stop on Hover:</label>
+<input type="checkbox" id="stopMouseHover" checked><br>
+</form>
+<!-- Форма для настройки слайдера -->
+
+<!-- Latest Article -->
+{% if latest_article %}
+<div class="news-section">
+  <div class="news-text">
+    <h2>{{ latest_article.title }}</h2>
+    <p>{{ latest_article.content|truncatewords:10 }}...</p>
+    <a href="{% url 'news_detail' latest_article.pk %}" class="read-more">Читать далее</a>
+  </div>
+  <div class="news-image">
+    <img src="{{ latest_article.image.url }}" alt="Изображение новости"  width="100%" />
+  </div>
+</div>
+{% endif %}
+
+  <ul class="partner-list">
+    {% for partner in partners %}
+    <li>
+      <a href="{{ partner.website }}" target="_blank" rel="noopener noreferrer">
+        <img src="{{ partner.logo.url }}" alt="{{ partner.name }}">
+        <!-- <span>{{ partner.name }}</span> -->
+      </a>
+    </li>
+    {% endfor %}
+  </ul>
+
+<hr>
+  <div class="scene">
+    <div class="item board"><img src="{% static 'images/image1.png' %}" alt="Доска"></div>
+    <div class="item nail"><img src="{% static 'images/image2.png' %}"  alt="Винтик"></div>
+    <div class="item hammer"><img src="{% static 'images/image3.png' %}"  alt="Молоток"></div>
+
+    <div class="explosion"><img src="{% static 'images/explosion.png' %}"  alt="Взрыв"></div>
+
+    <div class="furniture table"><img src="{% static 'images/table.png' %}" height=120px width=120px alt="Стол"></div>
+    <div class="furniture chair"><img src="{% static 'images/chair.png' %}" height=120px width=120px alt="Стул"></div>
+    <div class="furniture wardrobe"><img src="{% static 'images/cabinet.png' %}" height=200px width=200px alt="Шкаф"></div>
+
+    <div class="company-name">Sofá Soñado</div>
+  </div>
+<hr>
+  </div>
+  <script src="{% static 'js/controls.js' %}"></script>  <!-- Подключение JavaScript файла -->
+  <script src="{% static 'js/pagination.js' %}"></script>  <!-- Подключение JavaScript файла -->
+  <script src="{% static 'js/birthday_validation.js' %}"></script>  <!-- Подключение JavaScript файла -->
+  <script src="{% static 'js/slider.js' %}"></script>  <!-- Подключение JavaScript файла -->
+
+
+</div>
+
+{% endblock %}

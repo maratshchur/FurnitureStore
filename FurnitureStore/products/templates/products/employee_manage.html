@@ -1,0 +1,119 @@
+{% extends 'products/base.html' %}
+{% load static %}
+{% block content %}
+<head>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/employee_manage.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/preloader.css' %}">
+    <title>Управление сотрудниками</title>
+</head>
+<body>
+    <div class="container">
+        <h1>Сотрудники</h1>
+        <button id="toggleAddForm" class="btn-primary">Добавить сотрудника</button>
+
+        <div id="addEmployeeForm" class="add-employee-form">
+            <h2>Добавить сотрудника</h2>
+            <form method="post" enctype="multipart/form-data" id="employeeForm">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="first_name">Имя:</label>
+                    <input type="text" id="first_name" name="first_name" placeholder="Имя" required>
+                </div>
+                <div class="form-group">
+                    <label for="last_name">Фамилия:</label>
+                    <input type="text" id="last_name" name="last_name" placeholder="Фамилия" required>
+                </div>
+                <div class="form-group">
+                    <label for="jobDescription">Описание работы:</label>
+                    <input type="text" id="jobDescription" name="job_description" placeholder="Описание работы" required>
+                </div>
+                <div class="form-group">
+                    <label for="phoneNumber">Телефон:</label>
+                    <input type="text" id="phoneNumber" name="phone_number" placeholder="Телефон" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email" placeholder="Email">
+                </div>
+                <div class="form-group">
+                    <label for="photo">Фото:</label>
+                    <input type="file" id="photo" name="photo">
+                </div>
+                <div class="form-group">
+                    <label for="URL">URL:</label>
+                    <input type="url" id="url" name="url" placeholder="URL" required>
+                    <p id="urlErrorMessage" class="error-message"></p>
+                </div>
+                <div class="form-group">
+                    <button type="submit" id="addEmployeeButton" class="btn-primary">Добавить в таблицу</button>
+                </div>
+                <p id="validationMessage" class="error-message"></p>
+            </form>
+        </div>
+
+        <div class="form-group">
+            <input type="text" id="filterInput" placeholder="Поиск по имени или фамилии" class="input-filter">
+            <button id="filterButton" class="btn-secondary">Найти</button>
+        </div>
+
+        <div class="preloader" id="preloader">
+            <div class="tetris-container">
+                <div class="figure figure-i">
+                  <div class="block"></div>
+                  <div class="block"></div>
+                  <div class="block"></div>
+                  <div class="block"></div>
+                </div>
+                <div class="figure figure-o">
+                  <div class="block"></div>
+                  <div class="block"></div>
+                  <div class="block"></div>
+                  <div class="block"></div>
+                </div>
+                <div class="figure figure-t">
+                  <div class="block"></div>
+                  <div class="block"></div>
+                  <div class="block"></div>
+                  <div></div>
+                  <div class="block"></div>
+                </div>
+                <div class="figure figure-l">
+                  <div class="block"></div>
+                  <div class="block"></div>
+                  <div class="block"></div>
+                  <div class="block"></div>
+                </div>
+            </div>
+        </div>
+
+        <table id="employeeTable">
+            <thead>
+                <tr>
+                    <th data-sort="full_name">ФИО</th>
+                    <th data-sort="photo">Фото</th>
+                    <th data-sort="job_description">Описание работы</th>
+                    <th data-sort="phone_number">Телефон</th>
+                    <th data-sort="email">Email</th>
+                    <th>Выбрать</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+
+        <div id="pagination">
+            <button id="prevPage" class="btn-secondary" disabled>Назад</button>
+            <span id="pageInfo"></span>
+            <button id="nextPage" class="btn-secondary" disabled>Вперед</button>
+        </div>
+
+        <div id="employeeDetails" style="display: none;">
+            <h2>Детали сотрудника</h2>
+            <p id="detailsText"></p>
+        </div>
+
+        <button id="rewardButton" class="btn-primary">Премировать</button>
+        <p id="rewardText"></p>
+    </div>
+    <script src="{% static 'js/employee_manage.js' %}"></script>
+</body>
+{% endblock %}

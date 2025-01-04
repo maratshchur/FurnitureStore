@@ -1,0 +1,73 @@
+.container {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 0 20px;
+}
+main{
+    padding-top: 200px;
+}
+.title {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.pickup-list {
+    list-style: none;
+    padding: 0;
+}
+
+.pickup-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 15px;
+    background-color: #f9f9f9;
+}
+
+.pickup-info {
+    font-size: 1.2em;
+    font-weight: bold;
+}
+
+.pickup-actions {
+    text-align: right;
+}
+
+.btn {
+    padding: 10px 15px;
+    text-decoration: none;
+    border-radius: 5px;
+    margin-right: 5px;
+    border: none;
+    cursor: pointer;
+}
+
+.btn-primary {
+    background-color: #8E9D74;
+    color: white;
+}
+
+.btn-danger {
+    background-color: gray;
+    color: white;
+}
+
+.add-pickup {
+    text-align: center;
+    margin-top: 20px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 600px) {
+    .pickup-item {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    .pickup-actions {
+        text-align: left;
+        margin-top: 10px;
+    }
+}

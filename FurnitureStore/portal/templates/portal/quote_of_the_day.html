@@ -1,0 +1,12 @@
+{% extends 'products/base.html' %}
+{% load static %}
+{% block content %}
+<head>
+  <link rel="stylesheet" href="{% static 'css/quote.css' %}">
+</head>
+<div class="container">
+  <h1 class="title">Цитата дня</h1>
+  <p class="quote-author">{{ quote.author }}</p>
+  <blockquote class="quote-body">{{ quote.body }}</blockquote>
+</div>
+{% endblock %}

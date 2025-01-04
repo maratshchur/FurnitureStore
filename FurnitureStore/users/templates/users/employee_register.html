@@ -1,0 +1,15 @@
+{% extends 'products/base.html' %}
+{% load static %}
+{% block content %}
+<head>
+  <link rel="stylesheet" href="{% static 'css/employee_registration.css' %}">
+</head>
+<div class="container">
+  <h1 class="title">Регистрация</h1>
+  <form method="post" class="registration-form">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn btn-primary">Зарегистрировать работника</button>
+  </form>
+</div>
+{% endblock %}

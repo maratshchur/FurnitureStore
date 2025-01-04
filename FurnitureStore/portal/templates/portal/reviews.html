@@ -1,0 +1,25 @@
+{% extends 'products/base.html' %}
+{%load static%}
+{% block content %}
+<head>
+  <link rel="stylesheet" href="{% static 'css/reviews.css' %}">
+</head>
+  <h1 class="page-title">Отзывы</h1>
+  <ul class="review-list">
+    {% for review in reviews_list %}
+      <li class="review">
+        <h2 class="review-author">{{ review.user.user.username }}</h2>
+        <p class="review-text">{{ review.text }}</p>
+        <p class="review-rating">Оценка: {{ review.rating }}/5</p>
+        {% if request.user.is_authenticated and review.user.user == request.user %}
+          <a href="{% url 'delete_review' review.id %}" class="review-delete">Удалить</a>
+        {% endif %}
+      </li>
+    {% endfor %}
+  </ul>
+  {% if request.user.is_authenticated %}
+    <div class="add-review">
+      <a href="{% url 'add_review' %}" class="add-review-button">Добавить отзыв</a>
+    </div>
+  {% endif %}
+{% endblock %}

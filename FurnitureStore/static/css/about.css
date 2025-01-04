@@ -1,0 +1,136 @@
+/* General Certificate Styling */
+.certificate {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    margin: 100px auto;
+    padding: 30px;
+    height: 550px;
+    width: 70%;
+    text-align: center;
+    border:100px solid rgba(0, 0, 0, 0.1);
+    background-color:  #e8ebe2;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    border-radius: 20px;
+    position: relative;
+    z-index: 2;
+}
+
+.certificate img {
+    position: absolute;
+    width: 20%; /* Slightly smaller for a more delicate touch */
+    height: auto;
+    top: 25%;
+    left: 40%;
+    z-index: 0;
+    opacity: 0.1; /* Fading for a subtle background effect */
+}
+
+.certificate img.medal {
+    position: absolute;
+    width: 20%; /* Slightly smaller for a more delicate touch */
+    height: auto;
+    top: 78%;
+    left: 83%;
+    z-index: 3;
+    opacity: 1;
+}
+
+.certificate p {
+    z-index: 1;
+    margin: 10px 0;
+    font-family: "Roboto", sans-serif;
+}
+
+#header {
+    color: #333;
+    font-family: "Playfair Display", serif;
+    font-size: 1.8em;
+    letter-spacing: 0.5px;
+    font-weight: 700;
+}
+
+#name {
+    color: #333;
+    font-family: "Playfair Display", serif;
+    font-size: 4.5em;
+    letter-spacing: 1px;
+    font-weight: 700;
+}
+
+#text {
+
+    color: #555;
+    font-size: 1.2em;
+    line-height: 1.5em;
+    margin: 50px auto;
+    max-width: 80%;
+}
+
+#city {
+    color: #444;
+    font-family: "Roboto", sans-serif;
+    font-size: 1.1em;
+    font-weight: 400;
+    letter-spacing: 0.5px;
+}
+
+/* Refined Styling for the Logo and Video Section */
+.logo-video {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 50px;
+    margin-bottom: 50px;
+    padding: 20px;
+    background-color: #f5f5f7;
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    border: 1px solid #e0e0e0;
+}
+
+.logo-video > img {
+    width: 220px;
+    height: 220px;
+    object-fit: cover;
+}
+
+.logo-video > img:first-of-type {
+    transform: rotate(-15deg);
+}
+
+.logo-video > img:last-of-type {
+    transform: rotate(15deg);
+}
+
+.logo-video > video {
+    width: 60%;
+    padding: 10px;
+    outline: 3px solid #e0e0e0;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+}
+
+/* Text Styling */
+p.info, p.history {
+    text-align: center;
+    font-family: 'Roboto', sans-serif;
+    font-size: 1.2em;
+    color: #333;
+    margin: 20px 0;
+    line-height: 1.6;
+}
+
+#requisites {
+    margin-top: 50px;
+    text-align: center;
+    font-size: 1.1em;
+    font-family: 'Roboto', sans-serif;
+    color: #555;
+}
+
+#requisites > span {
+    font-weight: bold;
+    color: #333;
+}

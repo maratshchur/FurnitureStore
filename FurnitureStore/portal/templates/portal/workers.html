@@ -1,0 +1,26 @@
+{% extends 'products/base.html' %}
+{% load static %}
+{% block content %}
+<head>
+    <title>Сотрудники мебельной фабрики</title>
+    <link rel="stylesheet" href="{% static 'css/employees.css'%}">
+</head>
+<body>
+    <h1>Сотрудники мебельной фабрики</h1>
+    <div class="team-container">
+        {% for employee in employees %}
+            <div class="team-member">
+                {% if employee.photo %}
+                    <img src="{{ employee.photo.url }}" alt="{{ employee.first_name }} {{ employee.last_name }}" class="member-photo">
+                {% else %}
+                    <img src="default_photo.jpg" alt="Нет фото" class="member-photo"> 
+                {% endif %}
+                <h3>{{ employee.first_name }} {{ employee.last_name }}</h3>
+                <p>{{ employee.job_description }}</p>
+                <p>Телефон: {{ employee.phone_number }}</p>
+                <p>Email: {{ employee.email }}</p>
+            </div>
+        {% endfor %}
+    </div>
+</body>
+{%endblock%}

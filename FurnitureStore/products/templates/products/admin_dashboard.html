@@ -1,0 +1,103 @@
+{% extends 'products/base.html' %}
+{% load humanize %}
+{% load static %}
+
+{% block content %}
+<head>
+  <link rel="stylesheet" href="{% static 'css/admin_dashboard.css' %}">
+</head>
+<div class="container">
+  <h1 class="title">Админ-панель</h1>
+  <table class="data-table">
+    <thead>
+      <tr>
+        <th>Наименование</th>
+        <th>Код продукта</th>
+        <th>Вид изделия</th>
+        <th>Модель</th>
+        <th>Цена</th>
+        <th>Время изготовления (дней)</th>
+        <th>Активен</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for product in products %}
+      <tr>
+        <td>{{ product.name }}</td>
+        <td>{{ product.code }}</td>
+        <td>{{ product.product_type.name }}</td>
+        <td>{{ product.model }}</td>
+        <td>{{ product.price|intcomma }}</td>
+        <td>{{ product.production_time }}</td>
+        <td>{{ product.is_active|yesno:"Да, Нет" }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+  <table class="data-table">
+    <thead>
+      <tr>
+        <th>Город</th>
+        <th>Клиент</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for city, customers in city_customers.items %}
+      <tr>
+        <td>{{ city }}</td>
+        <td>
+          <ul>
+            {% for customer in customers %}
+              <li>{{ customer.user.username }} ({{ customer.address }})</li>
+            {% endfor %}
+          </ul>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+  <img src="{% static 'popular_products_chart.png' %}" alt="Popular Products Chart" class="chart">
+
+  <table class="data-table">
+    <thead>
+      <tr>
+        <th>Мебель</th>
+        <th>Месяц</th>
+        <th>Количество</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for item in monthly_sales %}
+      <tr>
+        <td>{{ item.product__name }}</td>
+        <td>{{ item.date__month }}</td>
+        <td>{{ item.total_quantity }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+  <table class="data-table">
+    <thead>
+      <tr>
+        <th>Год</th>
+        <th>Поступления</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for item in annual_revenue %}
+      <tr>
+        <td>{{ item.date__year }}</td>
+        <td>{{ item.total_revenue|floatformat:2 }} BYN</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+  <img src="{% static 'monthly_sales.png' %}" alt="Monthly Sales" class="chart">
+  <h3>График линейных трендов</h3> 
+  <img src="{% static 'linear_trends.png' %}" alt="Linear Trends" class="chart">
+</div>
+{% endblock %}

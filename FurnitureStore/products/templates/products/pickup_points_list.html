@@ -1,0 +1,75 @@
+{% extends 'products/base.html' %}
+{% load static %}
+{% block content %}
+<head>
+  <link rel="stylesheet" href="{% static 'css/pickup_points.css' %}">
+  <script src="https://api-maps.yandex.ru/2.1/?apikey=8ff3b77d-3897-435e-bdb2-6a166dc973a8&lang=ru_RU" type="text/javascript"></script>
+  <style>
+    #map {
+      width: 100%;
+      height: 400px;
+      margin-top: 20px;
+    }
+    .pickup-item {
+      transition: transform 0.2s; /* Smooth transition for the scale */
+    }
+    .pickup-item:hover {
+      transform: scale(1.05); /* Scale up slightly on hover */
+    }
+  </style>
+</head>
+<div class="container">
+  <h1 class="title">Точки самовывоза</h1>
+  <ul class="pickup-list">
+    {% for pickup_point in pickup_points %}
+      <li class="pickup-item">
+        <div class="pickup-info" onclick="showMap('{{ pickup_point.address }}')">
+          <span class="pickup-name">{{ pickup_point.name }} ({{ pickup_point.address }})</span>
+        </div>
+        <div class="pickup-actions">
+          {% if request.user.is_superuser %}
+            <div class="btn-group">
+              <a href="{% url 'update_pickup_point' pickup_point.id %}" class="btn btn-primary">Изменить</a>
+              <a href="{% url 'delete_pickup_point' pickup_point.id %}" class="btn btn-danger">Удалить</a>
+            </div>
+          {% endif %}
+        </div>
+      </li>
+    {% endfor %}
+  </ul>
+  {% if request.user.is_superuser %}
+    <div class="add-pickup">
+      <a href="{% url 'create_pickup_point' %}" class="btn btn-primary">Добавить точку самовывоза</a>
+    </div>
+  {% endif %}
+  <div id="map"></div>
+</div>
+
+<script type="text/javascript">
+  ymaps.ready(init);
+  var map;
+
+  function init() {
+    map = new ymaps.Map("map", {
+      center: [55.76, 37.64], // Default center
+      zoom: 10
+    });
+  }
+
+  function showMap(address) {
+    ymaps.geocode(address, {
+      results: 1
+    }).then(function (res) {
+      var firstGeoObject = res.geoObjects.get(0),
+          coords = firstGeoObject.geometry.getCoordinates(),
+          bounds = firstGeoObject.properties.get('boundedBy');
+
+      map.geoObjects.removeAll();
+      map.geoObjects.add(firstGeoObject);
+      map.setBounds(bounds, {
+        checkZoomRange: true
+      });
+    });
+  }
+</script>
+{% endblock %}

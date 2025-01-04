@@ -1,0 +1,103 @@
+{% extends 'products/base.html' %}
+{% load static %}
+{% block content %}
+<head>
+  <link rel="stylesheet" href="{% static 'css/about.css' %}">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    .spinning-chairs {
+      position: relative;
+      width: fit-content;
+      margin: 0 auto;
+      pointer-events: none;
+    }
+
+    .chair {
+      width: 70px;
+      height: 70px;
+      background-image: url("{% static 'images/scroll_chair.png' %}");
+      background-size: contain;
+      background-repeat: no-repeat;
+      position: absolute;
+      will-change: transform;
+    }
+
+    .video-frame {
+      position: relative;
+      display: inline-block;
+    }
+  </style>
+</head>
+
+<h1 style="margin-left: 50px;">О компании</h1>
+<div class="logo-video">
+    <img src="{{ company.image.url }}"/>
+    <div class="video-frame">
+        <div class="spinning-chairs"></div>
+        <video src="{{ company.video.url }}" loop autoplay controls>Ошибка загрузки видео</video>
+    </div>
+    <img src="{{ company.image.url }}"/>
+</div>
+
+<div class="certificate" style="
+    -webkit-border-image: url('{{ company.certificate.background_image.url }}') 250 stretch repeat;
+    -moz-border-image: url('{{ company.certificate.background_image.url }}') 250 stretch repeat;
+    -o-border-image: url('{{ company.certificate.background_image.url }}') 250 stretch repeat;
+    border-image: url('{{ company.certificate.background_image.url }}') 250 stretch repeat;">
+    <img src="{{ company.image.url }}"/>
+    <p id="header">{{ company.certificate.header }}</p>
+    <p id="name">{{ company.certificate.name }}</p>
+    <p id="text">{{ company.certificate.text }}</p>
+    <img src="{% static 'images/medal.png' %}" alt="medal" class="medal" height="70" width="70">
+    <p id="city">{{ company.certificate.city }}, {{ company.certificate.date }}</p>
+</div>
+
+<p class="info">{{ company.info }}</p>
+<p class="history">{{ company.history }}</p>
+
+<p id="requisites"><span>Реквизиты: </span>{{ company.requisites }}</p>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const chairContainer = document.querySelector('.spinning-chairs');
+    const numberOfChairs = 48; // Adjust the number of chairs here
+    const video = document.querySelector('video');
+    const videoRect = video.getBoundingClientRect();
+
+    for (let i = 0; i < numberOfChairs; i++) {
+      const chair = document.createElement('div');
+      chair.className = 'chair';
+      if (i < 8) {
+        chair.style.top = `${i * ((videoRect.height) /2.2)-30}px`;
+        chair.style.left = '-730px'; 
+      }
+      else if (i < 16) {
+        chair.style.top = `${(i-8) * ((videoRect.height) /2.2)-30}px`;
+        chair.style.left = `${videoRect.width + 300}px`;
+      } 
+      else if (i < 32){
+        chair.style.left = `${(i - 16) * (videoRect.width / 3.5)-700}px`;
+        chair.style.top = '-90px';
+      }
+      else if (i <= 48){
+        chair.style.left = `${(i - 32) * (videoRect.width / 3.5)-700}px`;
+        chair.style.top =  `${videoRect.height + 350}px`;
+      }
+      
+      chairContainer.appendChild(chair);
+    }
+
+    window.addEventListener('scroll', function() {
+      const scrollY = window.scrollY;
+
+      document.querySelectorAll('.chair').forEach((chair, index) => {
+        const direction = index % 2 === 0 ? 1 : -1;
+        chair.style.transform = `rotate(${scrollY * direction}deg)`;
+      });
+    });
+  });
+</script>
+
+{% endblock %}

@@ -1,0 +1,18 @@
+<!-- vacancies.html -->
+
+{% extends 'products/base.html' %}
+{%load static%}
+{% block content %}
+<head>
+  <link rel="stylesheet" href="{% static 'css/vacancies.css' %}">
+</head>
+  <h1 class="vacancies-title">Вакансии</h1>
+  <ul class="vacancies-list">
+    {% for vacancy in vacancies_list %}
+      <li class="vacancy">
+        <h2 class="vacancy-title">{{ vacancy.title }}</h2>
+        <p class="vacancy-description">{{ vacancy.description }}</p>
+      </li>
+    {% endfor %}
+  </ul>
+{% endblock %}

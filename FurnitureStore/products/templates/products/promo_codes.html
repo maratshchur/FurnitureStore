@@ -1,0 +1,33 @@
+{% extends 'products/base.html' %}
+{%load static%}
+{% block content %}
+<head>
+  <link rel="stylesheet" href="{% static 'css/promocodes.css' %}">
+</head>
+<div class="container">
+  <h1 class="title">Промокоды</h1>
+  <ul class="promo-list">
+    {% for promo_code in promo_codes %}
+      <li class="promo-item">
+        <div class="promo-info">
+          <span class="promo-code">{{ promo_code.code }} ({{ promo_code.discount }}%)</span>
+        </div>
+        <div class="promo-actions">
+          {% if request.user.is_superuser %}
+            <!-- <span class="badge {% if promo_code.is_active %}badge-success{% else %}badge-danger{% endif %}">{{ promo_code.is_active|yesno:"Активен,Не активен" }}</span> -->
+            <div class="btn-group">
+              <a href="{% url 'update_promocode' promo_code.id %}" class="btn btn-primary">Изменить</a>
+              <a href="{% url 'delete_promocode' promo_code.id %}" class="btn btn-danger">Удалить</a>
+            </div>
+          {% endif %}
+        </div>
+      </li>
+    {% endfor %}
+  </ul>
+  {% if request.user.is_superuser %}
+    <div class="add-promo">
+      <a href="{% url 'create_promocode' %}" class="btn btn-primary">Добавить промокод</a>
+    </div>
+  {% endif %}
+</div>
+{% endblock %}

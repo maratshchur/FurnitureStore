@@ -1,0 +1,24 @@
+{% extends 'products/base.html' %}
+{% load static %}
+
+{% block content %}
+<head>
+  <link rel="stylesheet" href="{% static 'css/dictionary.css'%}">
+</head>
+
+<h1>Часто задаваемые вопросы</h1>
+<div class="questions-container">
+    {% for term in terms %}
+        <div class="question-card">
+            <details>
+                <summary class="custom-pointer"><h3>{{ term.question }}</h3></summary>
+                <div class="content">    
+                    <p>{{ term.answer }}</p>
+                    <p>{{ term.created_at }}</p>
+                </div>
+            </details>
+        </div>
+    {% endfor %}
+</div>
+
+{% endblock %}

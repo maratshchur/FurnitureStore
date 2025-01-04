@@ -1,0 +1,216 @@
+.tetris-container {
+    margin-left: 0px;
+    position: relative;
+    width: 126px;
+    height: 400px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: transparent;
+  }
+  
+  .figure {
+    display: grid;
+    position: absolute;
+    grid-template-columns: repeat(4, 30px);
+    grid-template-rows: repeat(4, 30px);
+    gap: 2px;
+    opacity: 0;
+  }
+  
+  .block {
+    width: 30px;
+    height: 30px;
+    background-color: #3498db;
+    border: 1px solid #2980b9;
+  }
+  
+  /* Фигурка I */
+  .figure-i {
+    grid-template-columns: repeat(4, 30px);
+    grid-template-rows: 30px;
+  }
+  
+  .figure-i .block {
+    background-color: #1abc9c;
+    border-color: #16a085;
+  }
+  
+  /* Фигурка O */
+  .figure-o {
+    grid-template-columns: repeat(2, 30px);
+    grid-template-rows: repeat(2, 30px);
+  }
+  
+  .figure-o .block {
+    background-color: #f1c40f;
+    border-color: #f39c12;
+  }
+  
+  /* Фигурка T */
+  .figure-t {
+    grid-template-columns: repeat(3, 30px);
+    grid-template-rows: repeat(2, 30px);
+  }
+  
+  .figure-t .block {
+    background-color: #9b59b6;
+    border-color: #8e44ad;
+  }
+  
+  /* Фигурка L */
+  .figure-l {
+    grid-template-columns: repeat(3, 30px);
+    grid-template-rows: repeat(2, 30px);
+  }
+  
+  .figure-l .block {
+    background-color: #e67e22;
+    border-color: #d35400;
+  }
+  
+  /* Фигурка J */
+  .figure-j {
+    grid-template-columns: repeat(3, 30px);
+    grid-template-rows: repeat(2, 30px);
+  }
+  
+  .figure-j .block {
+    background-color: #2980b9;
+    border-color: #2c3e50;
+  }
+  
+  /* Фигурка S */
+  .figure-s {
+    grid-template-columns: repeat(3, 30px);
+    grid-template-rows: repeat(2, 30px);
+  }
+  
+  .figure-s .block {
+    background-color: #2ecc71;
+    border-color: #27ae60;
+  }
+  
+  /* Фигурка Z */
+  .figure-z {
+    grid-template-columns: repeat(3, 30px);
+    grid-template-rows: repeat(2, 30px);
+  }
+  
+  .figure-z .block {
+    background-color: #e74c3c;
+    border-color: #c0392b;
+  }
+  
+  /* Анимация падения */
+  @keyframes fall3 {
+    50% {
+      transform: translateY(-100%);
+      opacity: 0;
+    }
+    60% {
+      opacity: 1;
+    }
+    70% {
+      transform: translateY(0);
+      opacity: 1;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+  @keyframes fall1 {
+    0% {
+      transform: translateY(-100%);
+      opacity: 0;
+    }
+    10% {
+      opacity: 1;
+    }
+    20% {
+      transform: translateY(0);
+      opacity: 1;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+  @keyframes fall2 {
+    25% {
+      transform: translateY(-100%);
+      opacity: 0;
+    }
+    35% {
+      opacity: 1;
+    }
+    45% {
+      transform: translateY(0);
+      opacity: 1;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+  @keyframes fall4 {
+    75% {
+      transform: translateY(-100%);
+      opacity: 0;
+    }
+    85% {
+      opacity: 1;
+    }
+    95% {
+      transform: translateY(0);
+      opacity: 1;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+  @keyframes stay {
+  from {
+  transform: translateY(0);
+  opacity: 1;
+  }
+  to {
+  transform: translateY(0);
+  opacity: 1;
+  }
+  }
+  
+    .figure-i {
+      animation: fall3 1s ease forwards;
+      animation-iteration-count: infinite;
+    top: 181px;
+    animation-delay: 0s;
+  }
+  
+  .figure-o {
+      animation: fall4 1s ease forwards;
+      animation-iteration-count: infinite;
+    top: 117px;
+    animation-delay: 0s;
+  }
+  .figure-t {
+      animation: fall2 1s ease forwards;
+      animation-iteration-count: infinite;
+  left: 32px;
+    top: 213px;
+    animation-delay: 0s;
+  } 
+  
+  .figure-l {
+    animation: fall1 1s ease forwards;
+    animation-iteration-count: infinite;
+    top: 276px;
+    right: 33px;
+    animation-delay: 0s;
+  }
+  
+  /* Заданные позиции фигур, которые уже находятся внизу */
+  .bottom-figure {
+    animation: none;
+    opacity: 1;
+  }
+  
