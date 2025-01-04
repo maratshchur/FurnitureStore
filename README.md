@@ -13,6 +13,10 @@ This project is a web application for a furniture factory that produces various 
 
 * Displays a brief overview of the factory and its products.
 
+![Домашняя страница](Other/Screenshots/home.jpg)
+![Домашняя страница](Other/Screenshots/catalogue.jpg)
+
+
 ### About Us
 
 * Provides information about the factory, its history, and mission.
@@ -20,6 +24,8 @@ This project is a web application for a furniture factory that produces various 
 ### News
 
 * Displays a list of news articles with titles, brief descriptions, and images.
+![Новости](Other/Screenshots/news.jpg)
+
 
 ### Dictionary
 
@@ -28,6 +34,8 @@ This project is a web application for a furniture factory that produces various 
 ### Contacts
 
 * Displays a list of factory employees with their photos, descriptions, and contact information.
+![Сотрудники](Other/Screenshots/personal.jpg)
+
 
 ### Privacy Policy
 
@@ -113,6 +121,9 @@ The project displays various statistics and visualizations, including:
 * **Product Popularity**: Displays the most popular products by sales volume.
 * **Customer Demographics**: Displays customer demographics by city and age.
 * **Sales Forecast**: Displays a forecast of future sales based on historical data.
+![Линейный тренд продаж](Other/Screenshots/linear_trends.jpg)
+![Месячные продажи](Other/Screenshots/month_sales.jpg)
+
 
 **Logging**
 ---------
@@ -134,9 +145,9 @@ In the next semester, the project will be developed further to include:
 To run the project, follow these steps:
 
 1. **Clone the repository**: `git clone https://github.com/maratshchur/IGI_REPO.git`
-2. **Install dependencies**: `pip install -r requirements.txt`
-3. **Create a virtual environment**: `python -m venv myenv` (optional)
-4. **Activate the virtual environment**: `source myenv/bin/activate` (optional)
+2. **Create a virtual environment**: `python -m venv myenv` (optional)
+3. **Activate the virtual environment**: `source myenv/bin/activate` (optional)
+4. **Install dependencies**: `pip install -r requirements.txt`
 5. **Migrate the database**: `python manage.py migrate`
 6. **Run the development server**: `python manage.py runserver`
 7. **Open the project in your web browser**: `http://localhost:8000`
